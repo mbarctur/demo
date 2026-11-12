@@ -4,9 +4,9 @@ site:
 
 content:
   sources:
-    - url: ../..
+    - url: ../../
       branches: HEAD
-      start_path: docs/user
+      start_path: .
 
 ui:
   bundle:
