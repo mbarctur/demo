@@ -38,12 +38,12 @@ jobs:
         run: uv sync --locked --all-groups
 
       - name: Build documentation
-        run: uv run sphinx-build -b html docs/source docs/build
+        run: uv run sphinx-build -b html apidocs/source apidocs/build
 
       - name: Upload documentation
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/build
+          path: apidocs/build
 
       - name: Deploy to GitHub Pages
         id: deployment
