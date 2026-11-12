@@ -4,9 +4,9 @@ site:
 
 content:
   sources:
-    - url: .
+    - url: ./../../
       branches: HEAD
-      start_path: .
+      start_path: docs/user
 
 ui:
   bundle:
@@ -14,4 +14,4 @@ ui:
     snapshot: true
 
 output:
-  dir: ../../_site/user
+  dir: ./../../_site/user
