@@ -1,7 +1,7 @@
 name: Build Sphinx documentation
 
 on:
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
