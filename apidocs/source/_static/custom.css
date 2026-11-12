@@ -1,0 +1,45 @@
+/* Main documentation content */
+.wy-nav-content {
+    max-width: none !important;
+    width: auto !important;
+}
+
+/* Allow content to use the available width */
+.rst-content {
+    max-width: none !important;
+    width: 100% !important;
+}
+
+/* Long function and method signatures */
+.rst-content dl.py dt,
+.rst-content dl.function dt,
+.rst-content dl.method dt,
+.rst-content dl.class dt {
+    max-width: 100% !important;
+    width: 100%;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+}
+
+/* Parameter descriptions */
+.rst-content dl.field-list {
+    width: 100%;
+}
+
+/* Prevent long parameter names from restricting descriptions */
+.rst-content dl.field-list dt {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* Allow long text and code to wrap */
+.rst-content p,
+.rst-content li {
+    overflow-wrap: anywhere;
+}
+
+/* Code blocks */
+.rst-content pre {
+    max-width: 100%;
+    overflow-x: auto;
+}

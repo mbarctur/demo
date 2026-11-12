@@ -1,0 +1,102 @@
+[project]
+name = "my_project"
+version = "0.1.0"
+description = "descirptiondsadsadasdadasdsa"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "matplotlib==3.11.2",
+    "numba==0.68.1",
+    "numpy==2.5.4",
+    "opencv-contrib-python==5.0.0.93",
+    "pandas==3.1.1",
+    "questionary>=2.1.1",
+    "scikit-learn==1.9.1",
+    "scipy==1.18.1",
+    "pywin32>=311 ; sys_platform == 'win32'",
+    "tqdm>=4.70.1",
+    "xgboost-cpu==3.4.1",
+    "matplotlib==3.11.2",
+]
+
+[tool.ruff]
+line-length = 88
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "PLR0917"]
+ignore = []
+
+[tool.ruff.lint.pylint]
+max-positional-args = 1
+
+[tool.ruff.format]
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+
+[tool.deadcode]
+exclude = [".venv", "docs", "assets", "model", "runs"]
+
+[dependency-groups]
+dev = [
+    "deadcode>=2.6.1",
+    "eradicate>=3.0.1",
+    "interrogate>=1.7.0",
+    "mypy==2.4.1",
+    "pandas-stubs>=3.1.0.261029",
+    "pytest>=8.0.0",
+    "ruff>=0.17.3",
+    "sphinx-rtd-theme>=3.1.0",
+    "sphynx>=0.0.3",
+    "types-tqdm>=4.70.0.20261106",
+    "vulture>=2.16",
+]
+
+#[project.urls]
+#Homepage = "https://GITHUB-URL"
+
+[project.scripts]
+classica = "classica.main:main"
+
+[build-system]
+requires = ["uv_build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.mypy]
+disallow_untyped_defs = true
+warn_return_any = true
+warn_unused_configs = true
+
