@@ -1,0 +1,7 @@
+name: my_project
+title:
+version: true
+start_page: ROOT:index.adoc
+
+nav:
+  - modules/ROOT/nav.adoc

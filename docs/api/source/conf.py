@@ -3,7 +3,7 @@ import sys
 
 sys.path.insert(
     0,
-    os.path.abspath('../../src')
+    os.path.abspath('../../../src')
 )
 
 project = 'Demo project'
