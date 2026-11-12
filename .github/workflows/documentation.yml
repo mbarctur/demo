@@ -1,92 +1,50 @@
-name: Build documentation
+
+name: Demo builder
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+  workflow_call:
 
 concurrency:
-  group: pages
+  group: documentation
   cancel-in-progress: true
 
 jobs:
-  build:
+  sphinx:
+    uses: ./.github/workflows/build-sphinx.yml
+
+  antora:
+    uses: ./.github/workflows/build-antora.yml
+
+  deploy-pages:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
+    needs:
+      - sphinx
+      - antora
+
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
+      - name: Combine API and user documentation
+        uses: actions/download-artifact@v4
         with:
-          node-version: '22'
-
-      - name: Install Antora
-        run: npm install --no-save antora
-
-      - name: Set up Python
-        uses: astral-sh/setup-uv@v7
-        with:
-          enable-cache: true
-
-      - name: Install Python
-        run: uv python install
-
-      - name: Install dependencies
-        run: uv sync --locked --all-groups
-
-      - name: Prepare output
-        run: mkdir -p _site
-
-      - name: Install Asciidoctor
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ruby-full
-          sudo gem install asciidoctor
-
-      - name: Build API documentation
-        run: uv run sphinx-build -b html docs/api/source _site/api
-
-      - name: Build Antora documentation
-        run: npx antora --fetch docs/user/antora-playbook.yml
-
-      - name: Build user documentation
-        run: |
-          asciidoctor -D _site/user docs/user/index.adoc
-
-      - name: Copy images
-        run: |
-          if [ -d docs/user/images ]; then
-            cp -r docs/user/images _site/user/
-          fi
+          pattern: '*'
+          path: _site/
+          merge-multiple: true
 
       - name: Add documentation homepage
         run: cp docs/site/index.html _site/index.html
 
-      - name: Upload documentation
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+
 

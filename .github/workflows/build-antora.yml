@@ -1,0 +1,38 @@
+name: Build user documentation
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install Antora
+        run: npm install --no-save antora
+
+      - name: Prepare output folder
+        run: mkdir -p _site
+
+      - name: Build user documentation (Antora)
+        run: npx antora --fetch docs/user/antora-playbook.yml
+
+      - name: Copy images
+        run: |
+          if [ -d docs/user/images ]; then
+            cp -r docs/user/images _site/user/
+          fi
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: user
+          path: _site/user
