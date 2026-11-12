@@ -35,12 +35,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Combine API and user documentation
+      - name: Combine user documentation
         uses: actions/download-artifact@v4
         with:
-          pattern: '*'
-          path: _site/
-          merge-multiple: true
+          name: user
+          path: _site/user
+
+      - name: Download API documentation
+        uses: actions/download-artifact@v4
+        with:
+          name: api
+          path: _site/api
+
 
       - name: Add documentation homepage
         run: cp docs/site/index.html _site/index.html
