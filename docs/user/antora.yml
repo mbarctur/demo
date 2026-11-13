@@ -1,6 +1,6 @@
 name: my_project
 title:
-version: true
+version: main
 start_page: ROOT:index.adoc
 
 nav:
